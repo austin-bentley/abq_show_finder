@@ -15,3 +15,7 @@ import "phoenix_html"
 //
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
+import spotifyRedirect from "./eventListeners.js"
+spotifyRedirect();
+// document.location.replace('https://accounts.spotify.com/authorize?response_type=code&client_id=ff570fbf9c52459a8eae080c5cab560c&redirect_uri=https%3A%2F%2Flocalhost%3A4000%2Fshows&scope=user-top-read');
+// document.location.replace('https://accounts.spotify.com/authorize?response_type=code&client_id=ff570fbf9c52459a8eae080c5cab560c&redirect_uri=https%3A%2F%2Fabqshowfinder.com%2Fshows&scope=user-top-read');
