@@ -26,7 +26,11 @@
   border-width: 0;
   letter-spacing: 2px;
   min-width: 160px;
-  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  font-family: SANS-SERIF;
   white-space: normal;
 }
 
