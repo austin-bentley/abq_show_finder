@@ -53,7 +53,6 @@ defmodule AbqShowFinder.Spotify do
 
   def request_authorization(spotify_api_code, conn) do
     current_url = remove_query_params(Plug.Conn.request_url(conn))
-    IO.inspect(Application.get_env(:abq_show_finder, :spotify_account_key), label: "hhhhhh")
 
     case HTTPoison.post(
            "https://accounts.spotify.com/api/token",
