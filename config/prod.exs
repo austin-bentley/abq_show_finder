@@ -16,8 +16,8 @@ config :abq_show_finder, AbqShowFinderWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
-config :abq_show_finder, :spotify_url,
-  value:
+config :abq_show_finder,
+  spotify_url:
     "https://accounts.spotify.com/authorize?response_type=code&client_id=ff570fbf9c52459a8eae080c5cab560c&redirect_uri=https%3A%2F%2Fabqshowfinder.com%2Fshows&scope=user-top-read"
 
 # ## SSL Support

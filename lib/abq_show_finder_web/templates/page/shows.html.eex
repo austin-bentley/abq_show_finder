@@ -1,1 +1,2 @@
 EEEEE
+<% IO.inspect(@artists, label: "pppp") %>

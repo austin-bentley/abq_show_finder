@@ -28,8 +28,11 @@ npm-debug.log
 # The directory NPM downloads your dependencies sources to.
 /assets/node_modules/
 
-# The directory NPM downloads your dependencies sources to.
+# The directory ElixirLs stores info.
 /.elixir_ls/
+
+# Files containing Env secrets.
+/config/*.secret.exs
 
 # Since we are building assets from assets/,
 # we ignore priv/static. You may want to comment
