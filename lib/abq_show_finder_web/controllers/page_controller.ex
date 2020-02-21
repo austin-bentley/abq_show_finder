@@ -3,6 +3,7 @@ defmodule AbqShowFinderWeb.PageController do
   require Logger
 
   alias AbqShowFinder.Spotify
+  alias AbqShowFinder.HoldMyTicket
 
   def index(conn, _params) do
     render(
@@ -14,8 +15,9 @@ defmodule AbqShowFinderWeb.PageController do
 
   def show(conn, %{"code" => spotify_api_code}) do
     with {:ok, auth_body} <- Spotify.request_authorization(spotify_api_code, conn),
-         {:ok, top_artists} <- Spotify.list_top_artists(auth_body) do
-      render(conn, "shows.html", artists: top_artists["items"])
+         {:ok, top_artists} <- Spotify.list_top_artists(auth_body),
+         {:ok, events} <- HoldMyTicket.get_upcoming_events(reduce_top_artists(top_artists)) do
+      render(conn, "shows.html", artists: top_artists["items"], upcoming_events: events)
     else
       {:error, error} ->
         Logger.error(error)
@@ -26,5 +28,9 @@ defmodule AbqShowFinderWeb.PageController do
           spotify_url: Application.get_env(:abq_show_finder, :spotify_url)
         )
     end
+  end
+
+  defp reduce_top_artists(%{"items" => artist_infos}) do
+    Enum.reduce(artist_infos, fn artist_info, acc -> [artist_info["name"] | acc] end)
   end
 end

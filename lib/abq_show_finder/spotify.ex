@@ -5,7 +5,7 @@ defmodule AbqShowFinder.Spotify do
 
   import Ecto.Query, warn: false
 
-  alias AbqShowFinder.Spotify.TopArtist
+  alias AbqShowFinder.Http
 
   @doc """
   Returns the list of top_artists from Spotify api.
@@ -23,24 +23,16 @@ defmodule AbqShowFinder.Spotify do
         "scope" => _scope,
         "token_type" => _token_type
       }) do
-    case HTTPoison.get(
-           "https://api.spotify.com/v1/me/top/artists",
-           [
-             Authorization: "Bearer #{access_token}",
-             "Content-Type": "application/json",
-             Accept: "application/json"
-           ],
-           params: %{limit: 50, time_range: "medium_term"}
-         ) do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        {:ok, Poison.decode!(body)}
-
-      {:ok, %HTTPoison.Response{body: body}} ->
-        {:error, body}
-
-      {:error, %HTTPoison.Error{reason: reason}} ->
-        {:error, reason}
-    end
+    HTTPoison.get(
+      "https://api.spotify.com/v1/me/top/artists",
+      [
+        Authorization: "Bearer #{access_token}",
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      ],
+      params: %{limit: 50, time_range: "medium_term"}
+    )
+    |> Http.handle_response()
   end
 
   def list_top_artists(_), do: {:error, "something went wrong"}
@@ -54,35 +46,27 @@ defmodule AbqShowFinder.Spotify do
   def request_authorization(spotify_api_code, conn) do
     current_url = remove_query_params(Plug.Conn.request_url(conn))
 
-    case HTTPoison.post(
-           "https://accounts.spotify.com/api/token",
-           [],
-           [
-             Authorization:
-               "Basic #{
-                 Base.encode64(
-                   "ff570fbf9c52459a8eae080c5cab560c:#{
-                     Application.get_env(:abq_show_finder, :spotify_account_key)
-                   }"
-                 )
-               }",
-             "Content-Type": "application/x-www-form-urlencoded"
-           ],
-           params: %{
-             grant_type: "authorization_code",
-             code: spotify_api_code,
-             redirect_uri: current_url
-           }
-         ) do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        {:ok, Poison.decode!(body)}
-
-      {:ok, %HTTPoison.Response{body: body}} ->
-        {:error, body}
-
-      {:error, %HTTPoison.Error{reason: reason}} ->
-        {:error, reason}
-    end
+    HTTPoison.post(
+      "https://accounts.spotify.com/api/token",
+      [],
+      [
+        Authorization:
+          "Basic #{
+            Base.encode64(
+              "#{Application.get_env(:abq_show_finder, :spotify_account_key)}:#{
+                Application.get_env(:abq_show_finder, :spotify_account_secret)
+              }"
+            )
+          }",
+        "Content-Type": "application/x-www-form-urlencoded"
+      ],
+      params: %{
+        grant_type: "authorization_code",
+        code: spotify_api_code,
+        redirect_uri: current_url
+      }
+    )
+    |> Http.handle_response()
   end
 
   defp remove_query_params(string) do

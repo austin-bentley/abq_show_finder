@@ -76,6 +76,7 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 config :abq_show_finder,
+  spotify_account_key: "ff570fbf9c52459a8eae080c5cab560c",
   spotify_url:
     "https://accounts.spotify.com/authorize?response_type=code&client_id=ff570fbf9c52459a8eae080c5cab560c&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Fshows&scope=user-top-read"
 
