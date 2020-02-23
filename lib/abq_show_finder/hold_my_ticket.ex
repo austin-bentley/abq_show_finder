@@ -22,12 +22,26 @@ defmodule AbqShowFinder.HoldMyTicket do
     Repo.all(Event)
   end
 
+  @doc """
+  Calls hold my ticket api by page
+
+  ## Examples
+      iex> get_events_by_page("0")
+  """
+
   def get_events_by_page(page) do
     HTTPoison.get(
       "https://holdmyticket.com/api/public/events/nearby/location/albuquerque/page/#{page}/accuracy/100"
     )
     |> Http.handle_response()
   end
+
+  @doc """
+  Makes api calls to get all new events and store them in the DB.
+
+  ## Examples
+      iex> ingest_new_events()
+  """
 
   def ingest_new_events(page \\ "0") do
     case get_events_by_page(page) do
@@ -42,22 +56,43 @@ defmodule AbqShowFinder.HoldMyTicket do
     end
   end
 
-  def get_upcoming_events(top_artists) do
-    # checkDB
-    # one =
-    #   Event
-    #   |> where([e], e.title in ^top_artists)
-    #   |> Repo.all()
-    # query = from e in "events", where: ^top_artists = ANY(e.title)
-    # one = Repo.all(query)
+  @doc """
+  Gets list of upcoming events.
 
-    # select * from mytable where 'Journal'=ANY(pub_types)
+  ## Examples
 
-    # IO.inspect(one, label: "jjjj")
-    # replay ingestion
-    ingest_new_events()
+      iex> get_upcoming_events()
+      [%Event{}]
+  """
+  def get_upcoming_events() do
+    {:ok, Repo.all(Event)}
+    # update to actually check date of event
+  end
 
-    # checkDB
+  @doc """
+  Finds an event based on a list of artists.
+
+  ## Examples
+
+      iex> match_events_by_artists(["Jimi hendrix", "Elliot Smith"])
+      [%Event{}]
+  """
+
+  def match_events_by_artists(top_artists) do
+    case Repo.all(Event)
+         |> Enum.reduce([], fn event, acc ->
+           case Enum.map(top_artists, fn artist -> String.contains?(event.title, artist) end)
+                |> Enum.any?(fn x -> x == true end) do
+             true ->
+               [event | acc]
+
+             false ->
+               acc
+           end
+         end) do
+      [] -> {:ok, []}
+      [events] -> {:ok, events}
+    end
   end
 
   @doc """
