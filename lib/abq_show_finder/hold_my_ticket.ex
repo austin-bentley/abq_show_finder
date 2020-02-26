@@ -81,7 +81,9 @@ defmodule AbqShowFinder.HoldMyTicket do
   def match_events_by_artists(top_artists) do
     case Repo.all(Event)
          |> Enum.reduce([], fn event, acc ->
-           case Enum.map(top_artists, fn artist -> String.contains?(event.title, artist) end)
+           case Enum.map(top_artists, fn artist ->
+                  String.contains?(String.downcase(event.title), String.downcase(artist))
+                end)
                 |> Enum.any?(fn x -> x == true end) do
              true ->
                [event | acc]
@@ -90,8 +92,11 @@ defmodule AbqShowFinder.HoldMyTicket do
                acc
            end
          end) do
-      [] -> {:ok, []}
-      [events] -> {:ok, events}
+      [] ->
+        {:ok, []}
+
+      events ->
+        {:ok, events}
     end
   end
 

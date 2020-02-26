@@ -1,1 +1,16 @@
-EEEEE
+<%= for event <- @matched_events do %>
+  <div class="container">
+    <% IO.inspect(event, label: "jjj") %>
+    <div class="card">
+      <div class="card__image-container">
+        <img class="card__image" src="<%= get_flyer_img(event) %>" alt="">
+        <div class="card-line-animation" style="background-image: url(<%= Routes.static_path(@conn, "/images/card_line.svg") %>)"></div>
+        
+      
+      <div class="card__content">
+        <h1 class="card__title">Lorem ipsum</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolor praesentium at quod autem omnis, amet eaque unde perspiciatis adipisci possimus quam facere illo et quisquam quia earum nesciunt porro.</p>
+      </div>
+    </div>
+  </div>
+<% end %>
