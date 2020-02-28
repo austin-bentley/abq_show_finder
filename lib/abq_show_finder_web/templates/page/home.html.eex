@@ -1,5 +1,5 @@
 <div class="hero-image__container">
-  <img class="hero-image" src="<%= Routes.static_path(@conn, "/images/desktop_hero.png") %>" alt="hero image" />
+  <img class="hero-image" src="<%= Routes.static_path(@conn, "/images/home_hero.png") %>" alt="hero image" />
   <div class="hero-image__child-container">
     <h1 class="hero-image__text">Find out if your favorite bands are coming to Albuquerque!</h1>
     <%= link(
@@ -10,7 +10,7 @@
     class: "hero-image__search"
     )%>
     <div class="powered-by__container">
-      <p class="powered-by__text">Powered by:</p>
+      <p class="powered-by__text">Powered by: </p>
       <img class="powered-by__holdmyticket" src="<%= Routes.static_path(@conn, "/images/hold_my_ticket.png") %>"
         alt="hold My Ticket Png" />
       <p class="powered-by__text">+</p>
