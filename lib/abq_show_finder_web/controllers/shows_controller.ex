@@ -1,31 +1,24 @@
-defmodule AbqShowFinderWeb.PageController do
+defmodule AbqShowFinderWeb.ShowsController do
   use AbqShowFinderWeb, :controller
   require Logger
 
   alias AbqShowFinder.Spotify
   alias AbqShowFinder.HoldMyTicket
 
-  def index(conn, _params) do
-    render(
-      conn,
-      "home.html",
-      spotify_url: Application.get_env(:abq_show_finder, :spotify_url)
-    )
-  end
-
   def show(conn, %{"code" => spotify_api_code}) do
     with {:ok, auth_body} <- Spotify.request_authorization(spotify_api_code, conn),
          {:ok, top_artists} <- Spotify.list_top_artists(auth_body),
          {:ok, matched_events} <-
            HoldMyTicket.match_events_by_artists(reduce_top_artists(top_artists)) do
-      render(conn, "shows.html", artists: top_artists["items"], matched_events: matched_events)
+      render(conn, "show.html", artists: top_artists["items"], matched_events: matched_events)
     else
       {:error, error} ->
         Logger.error(error)
 
-        render(
-          conn,
-          "home.html",
+        conn
+        |> put_view(AbqShowFinderWeb.HomeView)
+        |> render(
+          "index.html",
           spotify_url: Application.get_env(:abq_show_finder, :spotify_url)
         )
     end

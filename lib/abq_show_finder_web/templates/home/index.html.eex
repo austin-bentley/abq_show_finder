@@ -4,10 +4,9 @@
     <h1 class="hero-image__text">Find out if your favorite bands are coming to Albuquerque!</h1>
     <%= link(
       "SEARCH",
-    to: @spotify_url,
-    custom: "one=two",
-    method: :get,
-    class: "hero-image__search"
+      to: @spotify_url,
+      method: :get,
+      class: "hero-image__search"
     )%>
     <div class="powered-by__container">
       <p class="powered-by__text">Powered by: </p>

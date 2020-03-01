@@ -67,6 +67,10 @@
         opacity: 0;
         animation: ContentFadeIn .8s 1.6s forwards;
       }
+
+      &__see-more {
+        text-decoration: none;
+      }
     }
     
     @keyframes ContentFadeIn {

@@ -37,6 +37,18 @@ defmodule AbqShowFinder.HoldMyTicket do
   end
 
   @doc """
+  Makes api call to get hold my ticket event by ID.
+
+  ## Examples
+      iex> get_event_by_id()
+  """
+
+  def get_event_by_id(id) do
+    HTTPoison.get("https://holdmyticket.com/api/public/events/get/id/#{id}")
+    |> Http.handle_response()
+  end
+
+  @doc """
   Makes api calls to get all new events and store them in the DB.
 
   ## Examples

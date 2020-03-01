@@ -16,12 +16,8 @@ defmodule AbqShowFinderWeb.Router do
   scope "/", AbqShowFinderWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
-    get "/shows", PageController, :show
+    get "/", HomeController, :index
+    get "/shows", ShowsController, :show
+    get "/hold-my-ticket", HoldMyTicketController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", AbqShowFinderWeb do
-  #   pipe_through :api
-  # end
 end

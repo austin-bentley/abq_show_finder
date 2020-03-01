@@ -1,4 +1,4 @@
-defmodule AbqShowFinderWeb.PageView do
+defmodule AbqShowFinderWeb.ShowsView do
   use AbqShowFinderWeb, :view
 
   alias AbqShowFinder.HoldMyTicket.Event

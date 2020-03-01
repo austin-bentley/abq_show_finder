@@ -4,14 +4,18 @@
         <div class="card">
           <div class="card__image-container">
             <img class="card__image" src="<%= get_flyer_img(event) %>" alt="">
-            <div class="card-line-animation" style="background-image: url(<%= Routes.static_path(@conn, "/images/sprite_30fps.svg") %>)"></div>
+            <div class="card-line-animation" style="background-image: url(<%= Routes.static_path(@conn, "/images/card_line.svg") %>)"></div>
           </div>
           <div class="card__content">
             <h1 class="card__title"><%= event.title %></h1>
-            <%# add a see more button and pass the event ID to make a fetch with JS
-            https://holdmyticket.com/api/public/events/get/id/343957 %>
             <p>Venue: <%= event.venue_name %></p>
             <p>Doors: <%= event.doors %></p>
+            <%= link(
+              "See More",
+              to: "/hold-my-ticket?hmt_id=#{event.id}",
+              method: :get,
+              class: "card__see-more"
+            )%>
           </div>
         </div>
     <% end %>
