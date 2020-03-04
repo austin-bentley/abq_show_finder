@@ -1,5 +1,5 @@
 <div class="shows-page">
-  <div class="card-container">
+  <div class="card-container" data-masonry='{ "itemSelector": ".card", "columnWidth": 50 }'>
     <%= for event <- @matched_events do %>
         <div class="card">
           <div class="card__image-container">
@@ -9,9 +9,9 @@
           <div class="card__content">
             <h1 class="card__title"><%= event.title %></h1>
             <p>Venue: <%= event.venue_name %></p>
-            <p>Doors: <%= event.doors %></p>
+            <p>Doors: <%= display_date_time(event.doors) %></p>
             <%= link(
-              "See More",
+              "details",
               to: "/hold-my-ticket?hmt_id=#{event.id}",
               method: :get,
               class: "card__see-more"

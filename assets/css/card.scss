@@ -1,4 +1,8 @@
 .shows-page {
+  min-height: 100vh;
+  height: 100%;
+  background: #444;
+
   * {
     box-sizing: border-box;
     line-height: 1.5;
@@ -10,27 +14,16 @@
   }
   
   .card-container {
-    display: flex;
-    height: 100%;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    background: #444;
-  
     .card {
       margin: 24px;
       background: #333;
-      flex: 0 0 400px;
+      max-width: 400px;
       height: fit-content;
       border-radius: 6px;
       padding: 2rem;
       color: #aaa;
-      box-shadow: 0 .25rem .25rem rgba(0,0,0,0.2),
-        0 0 1rem rgba(0,0,0,0.2);
+      box-shadow: 0 .25rem .25rem rgba(0,0,0,0.2), 0 0 1rem rgba(0,0,0,0.2);
       overflow: hidden;
-
-      &:first-child {
-        margin-left: 48px;
-      }
 
       &-line-animation {
         animation-duration: 800ms;
@@ -70,6 +63,10 @@
 
       &__see-more {
         text-decoration: none;
+        color: black;
+        padding: 6px 10px;
+        background-color: white;
+        border-radius: 4px;
       }
     }
     

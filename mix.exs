@@ -44,6 +44,7 @@ defmodule AbqShowFinder.MixProject do
       {:jason, "~> 1.0"},
       {:httpoison, "~> 1.6"},
       {:poison, "~> 3.1"},
+      {:timex, "~> 3.5"},
       {:plug_cowboy, "~> 2.0"}
     ]
   end
