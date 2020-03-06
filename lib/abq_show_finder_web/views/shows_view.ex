@@ -12,7 +12,15 @@ defmodule AbqShowFinderWeb.ShowsView do
   def display_date_time(time) do
     with {:ok, naive_date_time} <- Timex.parse(time, "{RFC3339z}"),
          {:ok, date_time} <- DateTime.from_naive(naive_date_time, "Etc/UTC") do
-      "#{date_time.year}-#{date_time.month}-#{date_time.day} #{date_time.hour}"
+      day =
+        Timex.weekday(date_time)
+        |> Timex.day_name()
+
+      month = Timex.month_shortname(date_time.month)
+      "#{day}, #{month} #{date_time.day} at #{get_hour(date_time.hour)}"
     end
   end
+
+  defp get_hour(hour) when hour >= 12, do: "#{hour - 12}pm"
+  defp get_hour(hour) when hour < 12, do: "#{hour}am"
 end
