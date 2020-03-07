@@ -2,6 +2,7 @@ defmodule AbqShowFinderWeb.ShowsView do
   use AbqShowFinderWeb, :view
 
   alias AbqShowFinder.HoldMyTicket.Event
+  alias AbqShowFinder.Spotify.Artist
 
   def get_flyer_img(%Event{flyer: %{"flyer_lg" => flyer_url}}), do: flyer_url
   def get_flyer_img(%Event{flyer: %{"flyer_mid" => flyer_url}}), do: flyer_url

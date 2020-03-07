@@ -1,94 +1,69 @@
-.shows-page {
-  min-height: 100vh;
-  height: 100%;
-  background: #444;
+.card {
+  margin: 24px;
+  background: #333;
+  max-width: 400px;
+  height: fit-content;
+  border-radius: 6px;
+  padding: 2rem;
+  color: #aaa;
+  box-shadow: 0 .25rem .25rem rgba(0,0,0,0.2), 0 0 1rem rgba(0,0,0,0.2);
+  overflow: hidden;
 
-  * {
-    box-sizing: border-box;
-    line-height: 1.5;
-    font-family: 'Open Sans', sans-serif;
+  &-line-animation {
+    animation-duration: 800ms;
+    animation-timing-function: steps(24);
+    animation-fill-mode: forwards;
+    animation-delay: 1.6s;
+    animation-name: cardLine;
+    background-repeat: no-repeat;
+    position: absolute;
+    bottom: 4px;
+    width: 400px;
+    height: 24px;
   }
   
-  img {
-    max-width: 100%;
+  &__image-container {
+    margin: -2rem -2rem 1rem -2rem;
+    position: relative;
+  }
+
+  &__image {
+    opacity: 0;
+    animation: ImageFadeIn .8s 1.4s forwards;
+  }
+
+  &__title {
+    color: white;
+    margin-top: 0;
+    font-weight: 800;
+    letter-spacing: 0.01em;
   }
   
-  .card-container {
-    .card {
-      margin: 24px;
-      background: #333;
-      max-width: 400px;
-      height: fit-content;
-      border-radius: 6px;
-      padding: 2rem;
-      color: #aaa;
-      box-shadow: 0 .25rem .25rem rgba(0,0,0,0.2), 0 0 1rem rgba(0,0,0,0.2);
-      overflow: hidden;
-
-      &-line-animation {
-        animation-duration: 800ms;
-        animation-timing-function: steps(24);
-        animation-fill-mode: forwards;
-        animation-delay: 1.6s;
-        animation-name: cardLine;
-        background-repeat: no-repeat;
-        position: absolute;
-        bottom: 4px;
-        width: 400px;
-        height: 24px;
-      }
-      
-      &__image-container {
-        margin: -2rem -2rem 1rem -2rem;
-        position: relative;
-      }
-    
-      &__image {
-        opacity: 0;
-        animation: ImageFadeIn .8s 1.4s forwards;
-      }
-    
-      &__title {
-        color: white;
-        margin-top: 0;
-        font-weight: 800;
-        letter-spacing: 0.01em;
-      }
-      
-      &__content {
-        margin-top: -1rem;
-        opacity: 0;
-        animation: ContentFadeIn .8s 1.6s forwards;
-      }
-
-      &__see-more {
-        text-decoration: none;
-        color: black;
-        padding: 6px 10px;
-        background-color: white;
-        border-radius: 4px;
-      }
-    }
-    
-    @keyframes ContentFadeIn {
-      0% { transform: translateY(-1rem); opacity: 0; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
-    
-    @keyframes ImageFadeIn {
-      0% { transform: translate(-.5rem, -.5rem) scale(1.05); opacity: 0; filter: blur(2px); }
-      50% { opacity: 1; filter: blur(2px); }
-      100% { transform: translateY(0) scale(1.0); opacity: 1; filter: blur(0); }
-    }
-    
-    @keyframes cardLine {
-      0% {
-        background-position: 0px 0px;
-      }
-      100% {
-        background-position: -9600px 0px;
-      }
-    }
+  &__content {
+    margin-top: -1rem;
+    opacity: 0;
+    animation: ContentFadeIn .8s 1.6s forwards;
   }
 }
+
+@keyframes ContentFadeIn {
+  0% { transform: translateY(-1rem); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes ImageFadeIn {
+  0% { transform: translate(-.5rem, -.5rem) scale(1.05); opacity: 0; filter: blur(2px); }
+  50% { opacity: 1; filter: blur(2px); }
+  100% { transform: translateY(0) scale(1.0); opacity: 1; filter: blur(0); }
+}
+
+@keyframes cardLine {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: -9600px 0px;
+  }
+}
+
 

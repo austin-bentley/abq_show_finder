@@ -7,6 +7,11 @@ defmodule AbqShowFinder.Spotify do
 
   alias AbqShowFinder.Http
 
+  defmodule Artist do
+    @derive [Poison.Encoder]
+    defstruct [:name, :external_urls]
+  end
+
   @doc """
   Returns the list of top_artists from Spotify api.
 
@@ -32,7 +37,7 @@ defmodule AbqShowFinder.Spotify do
       ],
       params: %{limit: 50, time_range: "medium_term"}
     )
-    |> Http.handle_response()
+    |> Http.handle_response(as: %{"items" => [%Artist{}]})
   end
 
   def list_top_artists(_), do: {:error, "something went wrong"}

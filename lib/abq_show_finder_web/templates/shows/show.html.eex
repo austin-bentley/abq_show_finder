@@ -14,10 +14,22 @@
               "details",
               to: "/hold-my-ticket?hmt_id=#{event.id}",
               method: :get,
-              class: "card__see-more"
+              class: "external-button"
             )%>
           </div>
         </div>
+    <% end %>
+  </div>
+  <div class="tag-container">
+    <%= for artist <- @artists do %>
+      <%  %Artist{external_urls: %{"spotify" => url}} = artist %>
+
+      <%= link(
+      artist.name,
+      to: url,
+      method: :get,
+      class: "tag external-button"
+    )%>
     <% end %>
   </div>
 </div>

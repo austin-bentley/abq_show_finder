@@ -1,0 +1,45 @@
+.shows-page {
+  min-height: 100vh;
+  height: 100%;
+  background: #444;
+
+  * {
+    box-sizing: border-box;
+    line-height: 1.5;
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+
+  .external-button {
+    text-decoration: none;
+    color: #9c9c9c;
+    padding: 6px 10px;
+    display: inline-block;
+    white-space: nowrap;
+    background-color: white;
+    border-radius: 4px;
+    
+    &:hover {
+      color: black;
+    }
+  }
+
+  .tag-container {
+    text-align: center;
+    padding: 12px 24px 36px 24px;
+    opacity: 0;
+    animation: ContentFadeIn .8s 1.6s forwards;
+
+    @keyframes ContentFadeIn {
+      0% { transform: translateY(-1rem); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .tag {
+      margin: 4px;
+    }
+  }
+}

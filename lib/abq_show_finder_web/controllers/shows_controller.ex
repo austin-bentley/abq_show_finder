@@ -25,6 +25,6 @@ defmodule AbqShowFinderWeb.ShowsController do
   end
 
   defp reduce_top_artists(%{"items" => artist_infos}) do
-    Enum.reduce(artist_infos, [], fn artist_info, acc -> [artist_info["name"] | acc] end)
+    Enum.reduce(artist_infos, [], fn artist_info, acc -> [artist_info.name | acc] end)
   end
 end
